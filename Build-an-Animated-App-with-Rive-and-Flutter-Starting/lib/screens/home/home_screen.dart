@@ -5,7 +5,7 @@ import '../../models/course.dart';
 import 'components/course_card.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +47,17 @@ class HomeScreen extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
-              ...recentCourses.map(
-                (course) => Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: SecondaryCourseCard(course: course),
-                ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: recentCourses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    child: SecondaryCourseCard(course: recentCourses[index]),
+                  );
+                },
               ),
             ],
           ),
