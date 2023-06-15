@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 40),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Text(
@@ -26,6 +27,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     ...courses
@@ -47,12 +49,17 @@ class HomeScreen extends StatelessWidget {
                       .copyWith(fontWeight: FontWeight.w600),
                 ),
               ),
-              ...recentCourses.map(
-                (course) => Padding(
-                  padding:
-                      const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                  child: SecondaryCourseCard(course: course),
-                ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: recentCourses.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+                    child: SecondaryCourseCard(course: recentCourses[index]),
+                  );
+                },
               ),
             ],
           ),
